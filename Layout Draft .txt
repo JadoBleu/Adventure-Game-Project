@@ -1,0 +1,377 @@
+#... means that it has been explained above.
+____________________________________________________________________________________________________________________________________________________
+---------------------------------------------------------------------Menus Needed (Main Functions)--------------------------------------------------
+
+def Start Menu():		            # This will be the main program.
+	if New Game is true             # Erases Player Data file
+        if Confirmation is true
+            initialize data
+            save()
+            Tutorial()                # Runs through the basics of the game
+            Town()
+	if Load Game is true            # Loads player data from external file
+        Read data
+        town()
+    if Exit is true
+        exit()     
+
+def save()         
+    Outputs player data to external File 
+
+def load()
+    read file data
+
+def Pause Menu()
+    if view Character Info is true     
+        #Shows stats total in the format: base(equipment)(diety)
+        if view Ability Info is true  
+            #shows the two abilities you have.
+    if view Help is true
+        #Allows you to review help text. (see Other Info)
+    if Save Game is true
+        save()
+    if Save and Exitis true
+        save()
+        exit()
+    if Return to Main Menu is true
+        If save game is true
+            save()
+        Start Menu()
+    else
+        return 
+
+
+Town()
+    if new_items = "Yes"
+        shop_item1 = shop_item2 = shop_item3 = 0
+        if rng(100) is < 40
+            shop_item1 = new_armour(100,0,0)
+        if rng(100) is < 30
+            if shop_item1 = 0
+                shop_item1 = new_weapon(100,0,0)
+            else
+                shop_item2 = new_weapon(100,0,0)
+        if rng(100) is < 20 
+            if shop_item 1 = 0
+                shop_item1 = new_accessory(100,0,0)
+            elif shop_item2 = 0
+                shop_item2 = new_accessory(100,0,0)
+            else
+                shop_item3 = new_accessory(100,0,0)
+           
+                shop_item1 = new_weapon(100,0,0)
+            shop_item3 = new_accessory(100,0,0)
+    if Go to the Shop is true     
+        for shop_items1,2,3
+            if != 0
+                display 
+                if Buy is true
+                    replace player equipment
+                    deduct gold
+        display potions
+            if buy is true
+                input amount
+                    increase potion in inventory by amount
+                    decrease gold by amount*cost
+        if return to town is true
+            town()
+    if Take a rest at the Inn is true
+        if pay gold is true
+            full_restore()
+            town()
+        else
+            town()
+        >Return to Town  
+    if Go on an Adventure is true
+        rng()
+            Battle()
+        rng()
+            You stumbled upon an abandoned Bandit/Adventurer/Mercenary Camp
+            You looked around and found some items the bandits/adventurers/mercenaries left behind.
+            Received Consumables and gold
+                Town()
+        rng()
+            You followed a hidden path to ##### Temple      # Each one corresponds to a deity
+                                                            # 1:a burnt 2:an overgrown 3:a hidden 4:a collapsed 5:a buried 6:a sunken 7:a flooded
+            You looked around and found a skeleton by the altar/entrance/hallway. Do you search it?
+            if True
+                Receive a common(75%) or uncommon(25%) equipment.
+                town()
+            else 
+                The deity thanks you for not disturbing the rest of his worshipper and grants you a blessing.
+                Level up corresponding deity   
+                    town()
+          
+def battle()
+    while player hp >=0
+        while all enemy hp <=0
+            battle_menu())
+        else
+            Receive Experience(Level up if applicable)
+            Receive Ability Experience(Level up if applicable)
+            Receive gold
+            Receive items
+            if Receive Equipment = true
+                Keep
+            else
+                Sell 
+            town() 
+    if Use Ressurection Scroll is true
+        ressurect()
+    else
+        #Return to Town "The town guard brought you back safely, however some of your gold was left behind."
+        full_restore()
+        town()
+               
+
+def battle_Menu()
+    if Attack is true
+        Select an Enemy
+        damage()
+        modify health
+        battle_menu()
+    if Ability 1 is true       
+        ability_damage()
+        modify health
+        battle_menu()
+    if Ability 2 is true
+        ability_ damage()
+        modify health
+        battle_menu()
+    if Use Recovery Potion is true
+        Do Calculations
+        battle_menu()
+    if Escape is true       # "Drop some gold while frantically running back to town"
+        lose gold
+        town()
+
+
+ability_damage(attacker data, defender data, defender data, defender data)
+    if damage type = single
+        select enemy
+        damage to one enemy
+    else
+        if damage type = Splash
+            select enemy
+            damage to enemy
+            for all other enemies
+                damage to enemy
+        else
+            select enemy
+            for all enemies
+                damage to enemy
+
+    
+################################################################### Need to work on these
+def new_weapon(common = 80, uncommon = 15, rare = 5)
+    return weapon data
+def new_armor(common = 80, uncommon = 15, rare = 5)
+    return armour data
+def new_accessory(common = 80, uncommon = 15, rare = 5)
+    return accessory data
+def rng()
+    return a value
+def generate_enemy()
+    new_weapon(level)
+    new_armor(level)
+    new_accessory(level)
+        return enemy data
+
+def damage(attacker data, defender data)
+    return hp reduction value
+
+def ability_tome()
+    return ability data 
+
+def ressurect()
+    set hp to 25%
+    battle()
+
+def tutorial()
+    define base data
+    do one fight
+    do one boss fight
+    do one ability
+        learn one ability
+    
+
+
+____________________________________________________________________________________________________________________________________________________
+---------------------------------------------------------------------Data Needed--------------------------------------------------------------------
+
+Save File               #Use player name
+    Player Data
+    Ability Data 1
+    Ability Data 2
+    Deity Data  
+    Weapon Data
+    Armour Data
+    Accessory Data 1
+    Accessory Data 2
+
+Enemy Data
+    Level               # +-2 of player level
+    Boss?               # Level +5
+    Weapon Data         
+    Armour Data         
+    Accessory Data
+    Ability Data        
+
+Player data 
+    Name
+    Level               # Levelinng up allows you to increase stats by 3 points(Health, Attack, or Energy). 
+                        # Each level will increase all stats by 1 (Health, attack, Energy, Energy Regen)
+    Experience          
+    Max Experience      # calculated based off level
+    Health              # When Health hits 0, the fight is lost, and the player is given the option to use a revive scroll or to return to town.
+    Attack Lower        # Base attack lower limit
+    Attack Upper        # Base attack upper limit
+    Dexterity           # Default at 80 The chance to hit. % over every 100 gives chance to deal 25% additional damage (eg 250 Dex means 100% accuracy, and 50% chance to hit for 150% damage)
+    Ability 1           
+    Ability 2           # Can learn 2 Abilities               
+    Energy		        # Use Energy to use Abilities.
+    Energy Regen        # Energy is restored for each Basic Attack.
+
+
+Ability Data
+    Name                # Based on Type and Method
+    Level               # max 20
+    Experience          # max 50, After every 50 uses, the player can choose to increase base damage, status effects or increase energy efficiency
+    Base damage         # increased based on levels
+    Energy Cost         # increases based on levels
+    Damage Type
+    Ability Method
+    Status Effect
+
+Deity Data                  
+    Level                   # Each Deity has its own level
+                            # The name and effects are described below
+        1 - Sasskorn m      # Increases damage and increases limit range
+        2 - Joxvir  m       # Increases Health
+        3 - Deidre f        # Increases dexterity
+        4 - Regnier m       # Increases resistance       
+        5 - Avidris f       # Increases damage and decreases limit range
+        6 - Nerithusa f     # Increases Energy
+        7 - Igethon   NA    # Increases Energy regen
+                         
+
+#There is no inventory system for equipment. Each time an item is found, it can be equipped and the old one discarded, or sold for gold.
+Item Data
+    Equipment:	            # Item Level(Hidden) determines range of stats
+                            # Common     80% (Stats +0%, 1 additional stat)
+                            # uncommon   15% (Stats +10%, 2-3 additional stats)
+                            # Rare       5%  (Stats +15%, 4 additional stat)
+        Weapon
+            Rarity
+            Item Level
+            Name	        # rarity + chained to damage type
+            Damage Type     # One of the 4 types randomized     
+            Damage Lower    # Random value selected (weighted by level and rarity)
+            Damage Upper    # Random value selected (weighted by level and rarity)
+            Energy Regen    # Random value selected (weighted by level)
+        Accessory
+            Rarity
+            Item Level      # The following stats are randomly selected, duplicates allowed
+            Health          # Random value selected (weighted by level)
+            Damage          # Random value selected (weighted by level)
+            Energy          # Random value selected (weighted by level)
+            Dexterity       # Random value selected (weighted by level)
+        Armor
+            Rarity
+            Item Level
+            Name		    # chained to armour type    
+            Type            # 1 of the 4 types randomized
+            Base Resistance # Random value selected (weighted by level and rarity)
+                            # The following stats are randomly selected, duplicates allowed 
+            Health          # Random value selected (weighted by level)
+            Energy          # Random value selected (weighted by level)
+            Dexterity       # Random value selected (weighted by level)
+    Consumables
+        Ability Tome        # Randomly Generated Ability
+                            # Choose one ability to overwrite, or consume to grant one ability x experience.
+                                # Bonus experience for matching type, method, and Status effect
+                                    # one match = 10 exp increase
+                                    # two matchs = 15 exp increase
+                                    # three matches = 35 increase
+        Recovery Potion     # Recovers 50% of Health
+        Resurrection Scroll # Revives player with 25% Health
+
+
+
+
+
+____________________________________________________________________________________________________________________________________________________
+---------------------------------------------------------------------Other Info---------------------------------------------------------------------
+
+
+Help Info:
+    Damage          #Has a lower and upper limit. Each instance of damage is chosen from a value between these.
+	Damage Type     #Slash, Impact, Magic, Spiritual
+    Ability Method   
+        Single          #200% damage to one target
+        Splash          #150% damage to one target and 75% damage to all other Enemies
+        Wide Area       #100% damage to all enemies
+    Status effects          #30% chance of activating, increased by 3% ability level maxed at 60%
+        Smite               #Increases base damage by 15%                
+        Damage over time    #Does an additional 25% damage over 3 turns (Highest Applies)
+        Stun                #Skips enemy turn
+        Blind               #Reduces enemy Dexterity by half
+	Base Resistance	    #Base damage reduction. (soft cap when approaching 75% including armour type resistance)
+    Armour Types
+        Plate           #Slash Resistance       +25%    Magic Resistance        -15%
+        Leather         #Impact Resistance      +25%    Spiritual Resistance    -15%
+        Chain           #Magic Resistance       +25%    Impact Resistance       -15%
+        Robe            #Spiritual Resistance   +25%    Slash Resistance        -15%
+	Ability             #Randomly generated from a combination of Damage Type, Attack Method, and Status Effect
+        Base Damage     #Ability levels + 10% additiona damage for matching weapon damage type
+        Damage Type     #One of the 4 types randomized
+        Ability Method  #One of the 3 types randomized
+        Status effects  #One of the 4 types randomized   
+
+
+Town Options
+    Shop            #Buy	        
+        Equipment, between 1 or 2 are randomly generated after each adventure. (Common only)
+            Armour(40%)         
+            Weapon(30%)         
+            Accessory(20%)      
+        Revive scrolls          #10% chance of appearing
+        Recovery potions
+	Temple		                #Temple Level Limited by player level
+        Recover Health and Energy #Costs gold(increased by player level, decreased by shrine level)
+    Adventure
+        Battles(90%)     
+        Abandoned Temple(5%)    #Receive an uncommon item or an ability tome.
+        Abandoned Bandit Camp(5%) 
+            Gold                        
+            Recovery potions(35%)       #individually rolled three times
+            Ressurection scroll(25%)    #Individually rolled once
+
+
+
+Battles             #1-3 enemies are randomly generated, lower the level, the less likely to have multiple enemies (Player level +-2)
+                    #5% chance of a Boss monster appearing (enemy level +5)
+                        #Bosses can spawn with 1 or 2 minions.
+   Attack           #Does damage within the range and recovers Energy
+   Ability          #Consumes Energy to cast an ability.
+   Use Item         #Use the turn to recover Health using potions.
+   Escape           #Returns to town, there may be a penalty for running away up to x% of current gold; rounded up.              
+                    
+    Rewards         #Boss fights will modify drop chances(shown in parenthesis)
+                    #Item level of drops is based on level of enemy
+        Equipment Drop      #20% chance (+80%)
+            Common              #75%    (-90%)
+            uncommon            #15%
+            Rare                #10%    (+90%)
+                            #The player has a choice to equip or sell new item(previous item is discarded)
+        Item Drop           #20% chance (+20%)
+            Recovery Potion     #80%
+            Ressurection Scroll #20%
+        Ability Tome Drop   #1% chance  (+19%)
+                                
+        Experience Gain     #The player will obtain x experience per enemy (2x for boss)
+
+
+
+		
+
