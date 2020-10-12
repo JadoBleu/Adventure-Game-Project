@@ -44,38 +44,36 @@ def new_weapon_name(weapon_rarity, damage_type):
     name = weapon_rarity.capitalize()
     #Slash damage type weapon names
     if damage_type == "slash":
-        if rng(1,4) == True:
-            name += " War Axe"
-        elif rng(1,3) == True:
-            name += " Twin Daggers"
+        if rng(1,3) == True:
+            name += " Great Sword"
         elif rng(1,2) == True:
-            name += " Rapier"
+            name += " Hunting Knife"
         else:
-            name += " Long Swprd"
+            name += " Long Sword"
     #Impact damage type weapon names
     elif damage_type == "impact":
         if rng(1,3) == True:
-            name += " Mace"
+            name += " Spiked Mace"
         elif rng(1,2) == True:
             name += " War Hammer"
         else:
-            name += " Flail"
+            name += " Heavy Flail"
     #Magic damage type weapon names
     elif damage_type == "magic":
         if rng(1,3) == True:
-            name += " Wand"
+            name += " Engraved Wand"
         elif rng(1,2) == True:
-            name += " Staff"
+            name += " Wizard's Staff"
         else:
-            name += " Magic Sword"
+            name += " Enchanted Sword"
     #Spirit damage type weapon names
     elif damage_type == "spirit":
         if rng(1,3) == True:
-            name += " Scepter"
+            name += " Divine Scepter"
         elif rng(1,2) == True:
-            name += " Crystal Ball"
+            name += " Scrying Ball"
         else:
-            name += " Holy Sword"
+            name += " Sacred Chime"
     return name
 
 # Generates a new weapon based on the player's level
@@ -92,11 +90,11 @@ def new_weapon(player_level, common = 80, uncommon = 15, rare = 5):
     return weapon_data
 
 # Takes the data returned from new_weapon() and prints it in a readable format
-def print_weapon_info(weapon1):
+def print_weapon_info(weapon):
     #print for troubleshooting
-    print("Weapon:\t\t\t",weapon1.get("name"))
-    print("Attack:\t\t\t",weapon1.get("min"),"-", weapon1.get("max"))
-    print("Energy Regen:\t",weapon1.get("energy"))
+    print("Weapon:\t\t\t",weapon.get("name"))
+    print("  Attack:\t\t  ",weapon.get("min"),"-", weapon.get("max"))
+    print("  Energy Regen:\t\t  ",weapon.get("energy"))
 
 ''' Generate Armor'''
 # Selects a random damage type out of the 4 available:"plate", "leather", "chain", "robe"
@@ -137,7 +135,7 @@ def new_armor_name(armor_rarity, armor_type):
         elif rng(1,2) == True:
             name += " Battle Lamellar"
         else:
-            name += " Scale hauberk"
+            name += " Scale Hauberk"
     #Robe damage type armor names
     elif armor_type == "robe":
         if rng(1,3) == True:
@@ -180,20 +178,19 @@ def new_armor(player_level, common = 80, uncommon = 15, rare = 5):
     return armor_data
 
 # Takes the data returned from new_armor() and prints it in a readable format
-def print_armor_info(armor1):
+def print_armor_info(armor):
     #print for troubleshooting
-    print("Armor:\t\t\t",armor1.get("name"))
-    print("Type:\t\t\t",armor1.get("type").capitalize())
-    print("Resistance:\t\t",armor1.get("resistance"))
-    if armor1.get("health") != 0:
-        print("Health:\t\t\t",armor1.get("health"))
-    if armor1.get("energy") != 0:
-        print("Energy:\t\t\t",armor1.get("energy"))
-    if armor1.get("dexterity") != 0:
-        print("Dexterity:\t\t",armor1.get("dexterity"))
+    print("Armor:\t\t\t",armor.get("name"))
+    print("  Type:\t\t\t  ",armor.get("type").capitalize())
+    print("  Resistance:\t\t  ",armor.get("resistance"))
+    if armor.get("health") != 0:
+        print("  Health:\t\t  ",armor.get("health"))
+    if armor.get("energy") != 0:
+        print("  Energy:\t\t  ",armor.get("energy"))
+    if armor.get("dexterity") != 0:
+        print("  Dexterity:\t\t  ",armor.get("dexterity"))
 
 ''' Generate Rings'''
-
 # Generates a ring name
 def new_ring_name(ring_rarity):
     name = ring_rarity.capitalize()
@@ -233,7 +230,7 @@ def new_ring(player_level, common = 70, uncommon = 20, rare = 10):
     bonus_health = 0
     bonus_energy = 0
     bonus_dexterity = 0
-    for x in range(stat_amount):
+    for _ in range(stat_amount):
         if rng(1,4) == True:
             bonus_attack = bonus_attack + (int(math.sqrt(player_level)) + 2)
         elif rng(1,3) == True:
@@ -248,19 +245,19 @@ def new_ring(player_level, common = 70, uncommon = 20, rare = 10):
     return ring_data
 
 # Takes the data returned from new_ring() and prints it in a readable format
-def print_ring_info(ring1):
+def print_ring_info(ring):
     #print for troubleshooting
-    print("ring:\t\t\t",ring1.get("name"))
-    print("Resistance:\t\t",ring1.get("resistance"))
-    if ring1.get("attack") != 0:
-        print("Attack:\t\t\t",ring1.get("attack"))
-    if ring1.get("health") != 0:
-        print("Health:\t\t\t",ring1.get("health"))
-    if ring1.get("energy") != 0:
-        print("Energy:\t\t\t",ring1.get("energy"))
-    if ring1.get("dexterity") != 0:
-        print("Dexterity:\t\t",ring1.get("dexterity"))
+    print("Ring:\t\t\t",ring.get("name"))
+    if ring.get("attack") != 0:
+        print("  Attack:\t\t  ",ring.get("attack"))
+    if ring.get("health") != 0:
+        print("  Health:\t\t  ",ring.get("health"))
+    if ring.get("energy") != 0:
+        print("  Energy:\t\t  ",ring.get("energy"))
+    if ring.get("dexterity") != 0:
+        print("  Dexterity:\t\t  ",ring.get("dexterity"))
 
+''' Input Level'''
 # Input level and checks for type 
 def input_level():
     player_level = input("\nInput Player Level: ")
@@ -268,38 +265,110 @@ def input_level():
     try:
         player_level = int(player_level)
         print()
-    # Clear screen and loop back to main if not integer
+    # Clear screen and loop back to player_data if not integer
     except:
         clear_screen()
         print("\'",player_level,"\'is not a valid input. Please enter a number.")
-        main()
+        input_level()
     return player_level
 
-#Main program loop
-def main():
-    running = ""
-    player_level = int(input_level())
-    weapon1 = new_weapon(player_level)
-    print_weapon_info(weapon1)
-    print()
-    armor1 = new_armor(player_level)
-    print_armor_info(armor1)
-    print()
-    ring1 = new_ring(player_level)
-    print_ring_info(ring1)
-    print()
-    ring2 = new_armor(player_level)
-    print_ring_info(ring2)
-    running = input("\nEnter anything to try again or 'X' to stop.\n")
-    print("\033c", end="")
-    print("You have terminated the program.")
-    if running.lower() != "x":
-        clear_screen()
-        main()
-    else:
-        print("\033c", end="")
-        print("You have terminated the program.")
-        exit()
 
-#Initiates the main() function
-main()
+# Generate a set of equipment for the player
+def player_data(player_level):
+    weapon1 = new_weapon(player_level)
+    armor1 = new_armor(player_level)
+    ring1 = new_ring(player_level)
+    ring2 = new_ring(player_level) 
+    player_data = {"weapon": weapon1, "armor": armor1, "ring1": ring1, "ring2": ring2}
+    return player_data
+
+# Generates an enemy name based on the weapon and armor type
+def new_enemy_name(enemy_data):
+    name = ""
+    # Jobs based off armor type
+    if enemy_data["armor"]["type"] == "plate":
+        if rng(1,2) == True:
+            name += "Ogre"
+        else:
+            name += "Troll"
+    elif enemy_data["armor"]["type"] == "leather":
+        if rng(1,2) == True:
+            name += "Goblin"
+        else:
+            name += "Bandit"
+    elif enemy_data["armor"]["type"] == "chain":
+        if rng(1,2) == True:
+            name += "Gremlin"
+        else:
+            name += "Kobold"
+    elif enemy_data["armor"]["type"] == "robe":
+        if rng(1,2) == True:
+            name += "Vampire"
+        else:
+            name += "Draconian"
+    # Jobs based off weapon type
+    if enemy_data["weapon"]["type"] == "slash":
+        if rng(1,2) == True:
+            name += " Scout"
+        else:
+            name += " Hunter"
+    elif enemy_data["weapon"]["type"] == "impact":
+        if rng(1,2) == True:
+            name += " Brute"
+        else:
+            name += " Warrior"
+    elif enemy_data["weapon"]["type"] == "magic":
+        if rng(1,2) == True:
+            name += " Sorcerer"
+        else:
+            name += " Mage"
+    elif enemy_data["weapon"]["type"] == "spirit":
+        if rng(1,2) == True:
+            name += " Witch Doctor"
+        else:
+            name += " Shaman"
+    return name
+
+# Generate a set of equipment for the enemy
+def enemy_data(player_level):
+    enemy_level = player_level - random.randrange(-3,3)
+    if enemy_level <= 1:
+        enemy_level = 1
+    enemy_weapon = new_weapon(enemy_level)
+    enemy_armor = new_armor(enemy_level)
+    enemy_ring1 = new_ring(enemy_level)
+    enemy_ring2 = new_ring(enemy_level)
+    enemy_data = {"level": enemy_level, "weapon": enemy_weapon, "armor": enemy_armor, "ring1": enemy_ring1, "ring2": enemy_ring2}
+    enemy_data["name"] = new_enemy_name(enemy_data)
+    return enemy_data
+
+# Function to print equipment data regardless of entity
+def print_equipment_data(data):
+    # Weapon Data
+    print_weapon_info(data.get("weapon"))
+    # Armor Data
+    print_armor_info(data.get("armor"))
+    # Ring1 Data
+    print_ring_info(data.get("ring1"))
+    # Ring2 Data
+    print_ring_info(data.get("ring2"))
+    
+# Initiates the player_data() function
+player_level = int(input_level())
+
+# Generate a new player data based on input player level
+player_data = player_data(player_level)
+
+# Print player data
+print("\nPlayer Equipment:\n")
+print_equipment_data(player_data)
+
+
+# Generate a new enemy data based on input player level
+enemy_data = enemy_data(player_level)
+
+# Print enemy data
+print("\n\nEnemy Equipment:")
+print("Name:\t\t\t",enemy_data["name"])
+print("  Level:\t\t  ",enemy_data.get("level"))
+print_equipment_data(enemy_data)
