@@ -163,17 +163,17 @@ ability_damage(attacker data, defender data, defender data, defender data)
 
     
 # [[[Completed
+
 def rng()
     return a value
 def new_weapon(common = 80, uncommon = 15, rare = 5)
     return weapon data
 def new_armor(common = 80, uncommon = 15, rare = 5)
     return armour data
-    
-# Completed]]]
-
 def new_ring(common = 80, uncommon = 15, rare = 5)
     return ring data
+
+# Completed]]]
 
 def generate_enemy()
     new_weapon(level)

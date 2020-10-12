@@ -250,7 +250,7 @@ def new_ring(player_level, common = 70, uncommon = 20, rare = 10):
 # Takes the data returned from new_ring() and prints it in a readable format
 def print_ring_info(ring1):
     #print for troubleshooting
-    print("Ring:\t\t\t",ring1.get("name"))
+    print("ring:\t\t\t",ring1.get("name"))
     print("Resistance:\t\t",ring1.get("resistance"))
     if ring1.get("attack") != 0:
         print("Attack:\t\t\t",ring1.get("attack"))
@@ -260,21 +260,6 @@ def print_ring_info(ring1):
         print("Energy:\t\t\t",ring1.get("energy"))
     if ring1.get("dexterity") != 0:
         print("Dexterity:\t\t",ring1.get("dexterity"))
-
-# Input level and checks for type 
-def input_level():
-    player_level = input("\nInput Player Level: ")
-    # Try if type is integer
-    try:
-        player_level = int(player_level)
-        print()
-    # Clear screen and loop back to main if not integer
-    except:
-        clear_screen()
-        print("\'",player_level,"\'is not a valid input. Please enter a number.")
-        main()
-    return player_level
-
 
 # Input level and checks for type 
 def input_level():
@@ -303,7 +288,7 @@ def main():
     ring1 = new_ring(player_level)
     print_ring_info(ring1)
     print()
-    ring2 = new_ring(player_level)
+    ring2 = new_armor(player_level)
     print_ring_info(ring2)
     running = input("\nEnter anything to try again or 'X' to stop.\n")
     print("\033c", end="")
