@@ -474,10 +474,13 @@ def damage_taken(weapon_data, bonus_attack, bonus_dexterity, armor_data):
     attack_type = weapon_data["type"] 
     armor_type = armor_data["type"]
     multiplier = 0
-    if attack_type == resistance[armor_type][0]:
-        multiplier = .15
-    elif attack_type == resistance[armor_type][1]:
-        multiplier = -.1
+    try:
+        if attack_type == resistance[armor_type][0]:
+            multiplier = .15
+        elif attack_type == resistance[armor_type][1]:
+            multiplier = -.1
+    except:
+        multiplier = 1
     
     attack_amount = attack_value(weapon_data, bonus_attack, bonus_dexterity)
     damage_resistance = defense_value(armor_data)
