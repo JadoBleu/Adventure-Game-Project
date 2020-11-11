@@ -11,6 +11,7 @@ from saveload import save_file, load_file, init_new_game
 from housekeeping import clear_screen
 from shop import shop
 from adventure import adventure
+from equipment import new_armor, new_weapon
 
 
 def main_menu(SAVE_DATA):
@@ -23,6 +24,7 @@ def main_menu(SAVE_DATA):
         if confirm.lower() == "y":
             clear_screen()
             SAVE_DATA = init_new_game()
+            SAVE_DATA = tutorial(SAVE_DATA)
             clear_screen()
             print("Created "+SAVE_DATA["name"]+"'s save file")
             town(SAVE_DATA)
@@ -32,11 +34,20 @@ def main_menu(SAVE_DATA):
         SAVE_DATA = load_file()
         clear_screen()
         print("Loaded "+SAVE_DATA["name"]+"'s save file")
+        
         town(SAVE_DATA)
     elif command.lower() == "x":
         exit()
     else:
         main_menu(SAVE_DATA)
+
+
+def tutorial(SAVE_DATA):
+    '''initializes new equipment for the player
+    * returns SAVE_DATA'''
+    SAVE_DATA["player_data"]["item_data"]["armor"] = new_armor(100, 0, 0, 1)
+    SAVE_DATA["player_data"]["item_data"]["weapon"] = new_weapon(100, 0, 0, 1)
+    return SAVE_DATA
 
 
 # Town options

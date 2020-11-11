@@ -319,7 +319,7 @@ def print_battle_menu(SAVE_DATA, ENEMY_DATA):
           +str(ENEMY_DATA["enemy1"]["level"])+")")
     print(" HP:     "+str(SAVE_DATA["player_data"]["hp"])+"/"
           +str(SAVE_DATA["player_data"]["max_hp"])
-          +"\t\t\t\t\t HP:   "+str(ENEMY_DATA["enemy1"]["hp"])+"/"
+          +"\t\t\t\t\t\t HP:   "+str(ENEMY_DATA["enemy1"]["hp"])+"/"
           +str(ENEMY_DATA["enemy1"]["max_hp"]))
     print(" Energy: "+str(SAVE_DATA["player_data"]["energy"])+"/"
           +str(SAVE_DATA["player_data"]["max_energy"]))
