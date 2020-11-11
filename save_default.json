@@ -1,0 +1,94 @@
+{
+    "name": "",
+    "player_data": {
+        "level": 1,
+        "exp": 0,
+        "hp": 50,
+        "max_hp": 50,
+        "energy": 15,
+        "max_energy": 15,
+        "dexterity": 80,
+        "stats": {
+            "health": 0,
+            "attack": 0,
+            "dexterity": 0,
+            "energy": 0
+        },
+        "ability_data": {
+            "ability1": {
+                "name": "",
+                "level": 1,
+                "experience": 0,
+                "energy": 0,
+                "type": "",
+                "method": ""
+            },
+            "ability2": {
+                "name": "",
+                "level": 1,
+                "experience": 0,
+                "energy": 0,
+                "type": "",
+                "method": ""
+            }
+        },
+        "item_data": {
+            "gold": 0,
+            "potions": 0,
+            "scrolls": 0,
+            "weapon": {
+                "item": "weapon",
+                "level": 0,
+                "rarity": "",
+                "type": "",
+                "name": "",
+                "min": 0,
+                "max": 0,
+                "energy": 0,
+                "value": 0
+            },
+            "armor": {
+                "item": "armor",
+                "level": 0,
+                "rarity": "",
+                "type": "",
+                "name": "",
+                "resistance": 0,
+                "health": 0,
+                "energy": 0,
+                "dexterity": 0,
+                "value": 0
+            },
+            "ring1": {
+                "item": "ring",
+                "level": 0,
+                "rarity": "",
+                "name": "",
+                "attack": 0,
+                "health": 0,
+                "energy": 0,
+                "dexterity": 0,
+                "value": 0
+            },
+            "ring2": {
+                "item": "ring",
+                "level": 0,
+                "rarity": "",
+                "name": "",
+                "attack": 0,
+                "health": 0,
+                "energy": 0,
+                "dexterity": 0,
+                "value": 0
+            }
+        }
+    },
+    "shop_data": {
+        "new_items": true,
+        "item1": {"value": 25, "name": "Healing Potion"},
+        "item2": {"value": 50, "name": "Resurection Scroll"},
+        "item3": {},
+        "item4": {},
+        "item5": {}
+    }
+}
