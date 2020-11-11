@@ -22,7 +22,7 @@ def load_file():
 
 def init_new_game():
     '''Initialize a new game data and overwrite save_file.json'''
-    with open("save_default.json") as init_jason:
+    with open("save_default.json") as init_json:
         save_data = json.load(init_json)
     init_json.close()
     save_data["name"] = input("Enter your name: ")
