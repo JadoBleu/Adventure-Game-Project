@@ -11,9 +11,12 @@ def save_file(save_data):
 
 def load_file():
     '''load game data from save_file.json'''
-    with open("save_file.json") as save_json:
-        save_data = json.load(save_json)
-    save_json.close()
+    try:
+        with open("save_file.json") as save_json:
+            save_data = json.load(save_json)
+        save_json.close()
+    except:
+        SAVE_FILE = init_new_game()
     return save_data
 
 
