@@ -16,7 +16,7 @@ def load_file():
             save_data = json.load(save_json)
         save_json.close()
     except:
-        SAVE_FILE = init_new_game()
+        save_data = init_new_game()
     return save_data
 
 
