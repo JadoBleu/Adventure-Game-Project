@@ -101,8 +101,11 @@ def new_weapon(common=80, uncommon=15, rare=5, player_level=1):
     weapon_type = new_damage_type()
     weapon_name = new_weapon_name(weapon_rarity, weapon_type)
     # Generate Attack values with a minimum range of 2
-    weapon_attack_min = int((10 + math.pow(player_level, 0.91) * 2)
-                            + (player_level * (random.randrange(-100, 100, 1)/1000)))
+    try:
+        weapon_attack_min = int((10 + math.pow(player_level, 0.91) * 2)
+                                + (player_level * (random.randrange(-100, 100, 1)/1000)))
+    except:
+        weapon_attack_min = int((12) + (random.randrange(-1, 2, 1)))
     weapon_attack_max = int((weapon_attack_min * (random.randrange(100, 110)/100)) + 5)
     weapon_energy_regen = int(weapon_attack_min * (random.randrange(50, 60)/100))
     # Calculate weapon cost
