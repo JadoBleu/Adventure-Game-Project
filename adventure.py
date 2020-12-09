@@ -29,7 +29,7 @@ def integer_input(min = 1, max = 999999):
 
 def adventure(SAVE_DATA):
     '''chooses an encounter based on rng'''
-    if rng(90):
+    if rng(80):
         SAVE_DATA = battle(SAVE_DATA)
     else:
         SAVE_DATA = encounter(SAVE_DATA)
@@ -65,6 +65,7 @@ def encounter(SAVE_DATA):
         print("\t\t"+str(scrolls)+" resurection scrolls")
         SAVE_DATA["player_data"]["item_data"]["scrolls"] += scrolls
     SAVE_DATA = gain_exp(3, SAVE_DATA)
+    input("Press any key to continue")
     clear_screen()
     return SAVE_DATA
 
@@ -83,7 +84,6 @@ def gain_exp(exp, SAVE_DATA):
         SAVE_DATA = level_up(SAVE_DATA)
     else:
         SAVE_DATA["player_data"]["exp"] += exp
-        input("\nPress Enter to continue.\n")
     return SAVE_DATA
 
 
@@ -261,32 +261,42 @@ def battle(SAVE_DATA):
 
 def generate_enemies(SAVE_DATA, boss = False):
     '''generate a random set of enemies to fight'''
-    ENEMY_DATA = {"enemy1":{"boss": "N"}}
     # Generate number of enemies(1:60%, 2:30%, 3:10%)
+    # two enemies only possible after player lvl 5
+    # three enemies only possible after player lvl 10
+    ENEMY_DATA = {}
     enemies = ["enemy1"]
-    if rng(10):
-        enemies.append("enemy2")
-        enemies.append("enemy3")
-    elif rng(30):
-        enemies.append("enemy2")
-    if rng(5):
-        boss = True
-        ENEMY_DATA["enemy1"]["boss"] = "Y"
+    if SAVE_DATA["player_data"]["level"] > 5:
+        if rng(10):
+            enemies.append("enemy2")
+            if SAVE_DATA["player_data"]["level"] > 10:
+                enemies.append("enemy3")
+        elif rng(30):
+            enemies.append("enemy2")
+        if rng(5):
+            boss = True
+            ENEMY_DATA["enemy1"]["boss"] = "Y"
     for x in enemies:
         # Generate a set of equipment for each enemy
         ENEMY_DATA[x] = {}
         if boss:
+            ENEMY_DATA["enemy1"]["boss"] = "Y"
             ENEMY_DATA[x]["level"] =  SAVE_DATA["player_data"]["level"] + random.randint(3, 5)
+            if ENEMY_DATA[x]["level"] <= 1:
+                ENEMY_DATA[x]["level"] = 1
             ENEMY_DATA[x]["weapon"] = new_weapon(0, 100, 0, ENEMY_DATA[x]["level"])
             ENEMY_DATA[x]["armor"] = new_armor(0, 100, 0, ENEMY_DATA[x]["level"])
             ENEMY_DATA[x]["ring"] = new_ring(0, 100, 0, ENEMY_DATA[x]["level"])
-            ENEMY_DATA[x]["max_hp"] = new_max_hp(ENEMY_DATA[x]["level"]) * 1.5
+            ENEMY_DATA[x]["max_hp"] = round(new_max_hp(ENEMY_DATA[x]["level"]) * 1.15)
         else:
+            ENEMY_DATA["enemy1"]["boss"] = "N"
             ENEMY_DATA[x]["level"] = SAVE_DATA["player_data"]["level"] + random.randint(-2, 2)
+            if ENEMY_DATA[x]["level"] <= 1:
+                ENEMY_DATA[x]["level"] = 1
             ENEMY_DATA[x]["weapon"] = new_weapon(100, 0, 0, ENEMY_DATA[x]["level"])
             ENEMY_DATA[x]["armor"] = new_armor(100, 0, 0, ENEMY_DATA[x]["level"])
             ENEMY_DATA[x]["ring"] = new_ring(100, 0, 0, ENEMY_DATA[x]["level"])
-            ENEMY_DATA[x]["max_hp"] = new_max_hp(ENEMY_DATA[x]["level"])
+            ENEMY_DATA[x]["max_hp"] = round(new_max_hp(ENEMY_DATA[x]["level"]) * 0.5)
         ENEMY_DATA[x]["hp"] = ENEMY_DATA[x]["max_hp"]
         ENEMY_DATA[x]["name"] = new_enemy_name(ENEMY_DATA[x], boss)
         ENEMY_DATA[x]["dexterity"] = 80 + ENEMY_DATA[x]["armor"]["dexterity"] + \
@@ -298,6 +308,19 @@ def generate_enemies(SAVE_DATA, boss = False):
 def print_battle_menu(SAVE_DATA, ENEMY_DATA):
     '''Display current battle info'''
     print(""+"―"*80)
+    # Enemy1
+    print("\t   o  \t\t\t\t\t\t\t   o  \n"
+          "\t  /|\ \t\t\t\t\t\t\t  /|\ \n"
+          "\t  / \ \t\t\t\t\t\t\t  / \ ")
+    print(""+SAVE_DATA["name"]+" (lvl "+str(SAVE_DATA["player_data"]["level"])
+          +")\t\t\t\t\t"+ENEMY_DATA["enemy1"]["name"], " (lvl "
+          +str(ENEMY_DATA["enemy1"]["level"])+")")
+    print(" HP:     "+str(SAVE_DATA["player_data"]["hp"])+"/"
+          +str(SAVE_DATA["player_data"]["max_hp"])
+          +"\t\t\t\t\t\t HP:   "+str(ENEMY_DATA["enemy1"]["hp"])+"/"
+          +str(ENEMY_DATA["enemy1"]["max_hp"]))
+    print(" Energy: "+str(SAVE_DATA["player_data"]["energy"])+"/"
+          +str(SAVE_DATA["player_data"]["max_energy"]))
     # Enemy2
     try:
         if ENEMY_DATA["enemy2"]:
@@ -310,19 +333,6 @@ def print_battle_menu(SAVE_DATA, ENEMY_DATA):
                   +str(ENEMY_DATA["enemy2"]["max_hp"])+"\n")
     except:
         pass
-    # Enemy1
-    print("\t   o  \t\t\t\t\t\t\t   o  \n"
-          "\t  /|\ \t\t\t\t\t\t\t  /|\ \n"
-          "\t  / \ \t\t\t\t\t\t\t  / \ ")
-    print(""+SAVE_DATA["name"]+" (lvl "+str(SAVE_DATA["player_data"]["level"])
-          +")\t\t\t\t\t\t"+ENEMY_DATA["enemy1"]["name"], " (lvl "
-          +str(ENEMY_DATA["enemy1"]["level"])+")")
-    print(" HP:     "+str(SAVE_DATA["player_data"]["hp"])+"/"
-          +str(SAVE_DATA["player_data"]["max_hp"])
-          +"\t\t\t\t\t\t HP:   "+str(ENEMY_DATA["enemy1"]["hp"])+"/"
-          +str(ENEMY_DATA["enemy1"]["max_hp"]))
-    print(" Energy: "+str(SAVE_DATA["player_data"]["energy"])+"/"
-          +str(SAVE_DATA["player_data"]["max_energy"]))
 	# Enemy3
     try:
         if ENEMY_DATA["enemy3"]:
@@ -347,12 +357,15 @@ def player_attack(SAVE_DATA, ENEMY_DATA, ability_level = 0, method = "basic"):
     print(""+"―"*80)
     print("\nChoose a target to attack")
     try:
-        if ENEMY_DATA["enemy2"]["hp"] > 0:
-            print("\t1: "+ ENEMY_DATA["enemy2"]["name"])
+        if ENEMY_DATA["enemy1"]["hp"] > 0:
+            print("\t1: "+ ENEMY_DATA["enemy1"]["name"])
     except:
         pass
-    if ENEMY_DATA["enemy1"]["hp"] > 0:
-        print("\t2: "+ ENEMY_DATA["enemy1"]["name"])
+    try:
+        if ENEMY_DATA["enemy2"]["hp"] > 0:
+            print("\t2: "+ ENEMY_DATA["enemy2"]["name"])
+    except:
+        pass
     try:
         if ENEMY_DATA["enemy3"]["hp"] > 0:
             print("\t3: "+ ENEMY_DATA["enemy3"]["name"])
@@ -361,7 +374,7 @@ def player_attack(SAVE_DATA, ENEMY_DATA, ability_level = 0, method = "basic"):
     print("\n"+"―"*80+"\n")
     selection = integer_input(1,3)
     clear_screen()
-    enemy = ["enemy2", "enemy1", "enemy3"]
+    enemy = ["enemy1", "enemy2", "enemy3"]
     target = enemy[selection-1]
     if method != "basic":
         if method == "splash":
@@ -381,8 +394,11 @@ def player_attack(SAVE_DATA, ENEMY_DATA, ability_level = 0, method = "basic"):
                     ENEMY_DATA[x]["hp"] -= damage
                     if ENEMY_DATA[x]["hp"] <= 0:
                         ENEMY_DATA[x]["hp"] = 0
-                    print(ENEMY_DATA[x]["name"],"has taken", damage, 
-                        SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage from", SAVE_DATA["name"])
+                    if damage > 0:
+                        print(SAVE_DATA["name"],"dealt", damage, 
+                              SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage to", ENEMY_DATA[x]["name"])
+                    else:
+                        print(SAVE_DATA["name"]+"'s attack has missed!")
             except:
                 multiplier = 1.5 + (ability_level*0.1)
                 damage = round(damage_taken(
@@ -394,8 +410,11 @@ def player_attack(SAVE_DATA, ENEMY_DATA, ability_level = 0, method = "basic"):
                 ENEMY_DATA["enemy1"]["hp"] -= damage
                 if ENEMY_DATA["enemy1"]["hp"] <= 0:
                     ENEMY_DATA["enemy1"]["hp"] = 0
-                print(ENEMY_DATA["enemy1"]["name"],"has taken", damage, 
-                    SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage from", SAVE_DATA["name"])
+                if damage > 0:
+                    print(SAVE_DATA["name"],"dealt", damage, 
+                          SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage to", ENEMY_DATA["enemy1"]["name"])
+                else:
+                    print(SAVE_DATA["name"]+"'s attack has missed!")
         elif method == "single":
             multiplier = 2 + (ability_level*0.1)
             damage = round(damage_taken(
@@ -405,24 +424,35 @@ def player_attack(SAVE_DATA, ENEMY_DATA, ability_level = 0, method = "basic"):
                 ENEMY_DATA[target]["armor"]
                 ) * multiplier)
             ENEMY_DATA[target]["hp"] -= damage
-            if ENEMY_DATA[targetr]["hp"] <= 0:
+            if ENEMY_DATA[target]["hp"] <= 0:
                 ENEMY_DATA[target]["hp"] = 0
-            print(ENEMY_DATA[target]["name"],"has taken", damage, 
-                SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage from", SAVE_DATA["name"])
+            if damage > 0:
+                print(SAVE_DATA["name"],"dealt", damage, 
+                      SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage to", ENEMY_DATA[target]["name"])
+            else:
+                print(SAVE_DATA["name"]+"'s attack has missed!")
+            
 
 
     else:
-        damage = round(damage_taken(
-                    SAVE_DATA["player_data"]["item_data"]["weapon"],
-                    SAVE_DATA["player_data"]["stats"]["attack"],
-                    SAVE_DATA["player_data"]["stats"]["dexterity"],
-                    ENEMY_DATA[target]["armor"]
-                    ) * multiplier)
+        try:
+            damage = round(damage_taken(
+                        SAVE_DATA["player_data"]["item_data"]["weapon"],
+                        SAVE_DATA["player_data"]["stats"]["attack"],
+                        SAVE_DATA["player_data"]["stats"]["dexterity"],
+                        ENEMY_DATA[target]["armor"]
+                        ) * multiplier)
+        except:
+            print("Please choose an existing enemy.")
+            return ENEMY_DATA
         ENEMY_DATA[target]["hp"] -= damage
         if ENEMY_DATA[target]["hp"] <= 0:
             ENEMY_DATA[target]["hp"] = 0
-        print(ENEMY_DATA[target]["name"],"has taken", damage, 
-            SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage from", SAVE_DATA["name"])
+        if damage > 0:
+            print(SAVE_DATA["name"],"dealt", damage, 
+                SAVE_DATA["player_data"]["item_data"]["weapon"]["type"], "damage to", ENEMY_DATA[target]["name"])
+        else:
+            print(SAVE_DATA["name"]+"'s attack has missed!")
     return ENEMY_DATA
 
 
@@ -446,15 +476,18 @@ def enemy_attack(SAVE_DATA, ENEMY_DATA):
     '''Enemy attacks player
     * returns SAVE_DATA'''
     for x in ENEMY_DATA:
-        damage = damage_taken(
-                    ENEMY_DATA[x]["weapon"],
-                    ENEMY_DATA[x]["ring"]["attack"],
-                    ENEMY_DATA[x]["ring"]["dexterity"],
-                    SAVE_DATA["player_data"]["item_data"]["armor"]
-                 )
+        damage = round(damage_taken(ENEMY_DATA[x]["weapon"],
+                                    ENEMY_DATA[x]["ring"]["attack"],
+                                    ENEMY_DATA[x]["ring"]["dexterity"],
+                                    SAVE_DATA["player_data"]["item_data"]["armor"]
+                       ) * 0.6)
+
         SAVE_DATA["player_data"]["hp"] -= damage
-        print(SAVE_DATA["name"],"has taken", damage, 
-          ENEMY_DATA[x]["weapon"]["type"], "damage from", ENEMY_DATA[x]["name"])
+        if damage > 0:
+            print(ENEMY_DATA[x]["name"],"dealt", damage, 
+                  ENEMY_DATA[x]["weapon"]["type"], "damage to", SAVE_DATA["name"])
+        else:
+            print(ENEMY_DATA[x]["name"]+"'s attack has missed!")
     if SAVE_DATA["player_data"]["hp"] < 0:
         SAVE_DATA["player_data"]["hp"] = 0
     return SAVE_DATA
@@ -464,7 +497,7 @@ def damage_taken(weapon_data, bonus_attack, bonus_dexterity, armor_data):
     '''calculate the damage taken based on 
        attack_data, bonus_attack, bonus_dexterity and armor_data
     * returns hp_reduction'''
-    # armor type = [resistant(+15% resist), weak(-105% resist)]
+    # armor type = [resistant(+15% resist), weak(-10% resist)]
     resistance = {
         "plate": ["slash","magic"],
         "leather": ["impact", "spirit"],
@@ -549,7 +582,7 @@ def victory(SAVE_DATA, ENEMY_DATA):
     '''calculates victory rewards
     * returns SAVE_DATA'''
     print("\n\t\tVICTORY!")
-    input("\n\tPress Enter to continue")
+    input("\nPress Enter to continue")
     clear_screen()
     # gain exp based on enemy levels
     exp_gain = get_max_exp(ENEMY_DATA["enemy1"]["level"])
@@ -573,10 +606,10 @@ def victory(SAVE_DATA, ENEMY_DATA):
             # increase level of ability
             SAVE_DATA["player_data"]["ability_data"][x]["level"] += 1
             print("Your "+SAVE_DATA["player_data"]["ability_data"][x]["name"]+" has leveled up.")
-    input("\n\tPress Enter to continue")
+            input("\n\tPress Enter to continue")
     clear_screen()
     # gain gold based on player level and number of enemies
-    gold_earned = random.randrange(exp_gain*50, exp_gain*150)
+    gold_earned = random.randrange(exp_gain*15, exp_gain*50)
     SAVE_DATA["player_data"]["item_data"]["gold"] += gold_earned
     print("You have earned "+str(gold_earned)+" gold")
     input("\n\tPress Enter to continue")
@@ -600,51 +633,51 @@ def victory(SAVE_DATA, ENEMY_DATA):
     # Check to see if player will keep the new item
     looping = True
     while looping:
-        command = input("Do you wish to replace your current item?(Y/N)")
-        if command.lower() == "y":
-            if item_drop_type == "ring":
-                print("Currently equipped rings:\n1 = ")
-                print_ring_info(SAVE_DATA["player_data"]["item_data"]["ring1"])
-                print("2 = ")
-                print_ring_info(SAVE_DATA["player_data"]["item_data"]["ring2"])
-                print("New ring = ")
-                print_ring_info(item_drop)
-                command = input("Which Ring do you wish to replace? (Enter 'C' to Cancel)\n")
-                if command == "1":
-                    SAVE_DATA = update_stats(SAVE_DATA, item_drop, "ring1")
-                    SAVE_DATA["player_data"]["item_data"]["ring1"] = item_drop
-                    looping = False
-                elif command == "2":
-                    SAVE_DATA = update_stats(SAVE_DATA, item_drop, "ring2")
-                    SAVE_DATA["player_data"]["item_data"]["ring2"] = item_drop
-                    looping = False
-                else:
-                    continue
-            elif item_drop_type == "weapon":
-                print("Currently equipped weapon:")
-                print_weapon_info(SAVE_DATA["player_data"]["item_data"]["weapon"])
-                print("Replace with this new weapon?")
-                print_weapon_info(item_drop)
-                command = input("\nY = Confirm\n")
-                if command.lower() == "y":
-                    SAVE_DATA["player_data"]["item_data"]["weapon"] = item_drop
-                    looping = False
-            elif item_drop_type == "armor":
-                print("Currently equipped armor:")
-                print_armor_info(SAVE_DATA["player_data"]["item_data"]["armor"])
-                print("Replace with this new armor?")
-                print_armor_info(item_drop)
-                command = input("\nY = Confirm\n")
-                if command.lower() == "y":
-                    SAVE_DATA["player_data"]["item_data"]["armor"] = item_drop  
-                    SAVE_DATA = update_stats(SAVE_DATA, item_drop, "armor")
-                    looping = False
-        else: # command not y
-            print("You will exchange the dropped item for "+str(item_drop["value"])+" gold")
+        if item_drop_type == "ring":
+            print("Currently equipped rings:\n1 = ")
+            print_ring_info(SAVE_DATA["player_data"]["item_data"]["ring1"])
+            print("2 = ")
+            print_ring_info(SAVE_DATA["player_data"]["item_data"]["ring2"])
+            print("New ring = ")
+            print_ring_info(item_drop)
+            command = input("Which Ring do you wish to replace? (Enter 'N' to sell the new ring instead)\n")
+            clear_screen()
+            if command == "1":
+                SAVE_DATA = update_stats(SAVE_DATA, item_drop, "ring1")
+                SAVE_DATA["player_data"]["item_data"]["ring1"] = item_drop
+                looping = False
+            elif command == "2":
+                SAVE_DATA = update_stats(SAVE_DATA, item_drop, "ring2")
+                SAVE_DATA["player_data"]["item_data"]["ring2"] = item_drop
+                looping = False
+        elif item_drop_type == "weapon":
+            print("Currently equipped weapon:")
+            print_weapon_info(SAVE_DATA["player_data"]["item_data"]["weapon"])
+            print("Replace with this new weapon?")
+            print_weapon_info(item_drop)
+            command = input("\nY = Replace\nN = Sell\n")
+            clear_screen()
+            if command.lower() == "y":
+                SAVE_DATA["player_data"]["item_data"]["weapon"] = item_drop
+                looping = False
+        elif item_drop_type == "armor":
+            print("Currently equipped armor:")
+            print_armor_info(SAVE_DATA["player_data"]["item_data"]["armor"])
+            print("Replace with this new armor?")
+            print_armor_info(item_drop)
+            command = input("\nY = Replace\nN = Sell\n")
+            clear_screen()
+            if command.lower() == "y":
+                SAVE_DATA["player_data"]["item_data"]["armor"] = item_drop  
+                SAVE_DATA = update_stats(SAVE_DATA, item_drop, "armor")
+                looping = False
+        if command.lower() == "n":# Sell the item for gold
+            print("You will sell the dropped item for "+str(item_drop["value"])+" gold")
             command = input("\nY = Confirm\n")
             if command.lower() == "y":
                 SAVE_DATA["player_data"]["item_data"]["gold"] += item_drop["value"]
                 looping = False
+                clear_screen()
             else:
                 continue
     # gain ability tome based on boss drops
@@ -674,7 +707,7 @@ def defeat(SAVE_DATA):
             return SAVE_DATA
         elif selection.lower() == "e":
             # go to town
-            pass
+            return SAVE_DATA
     return SAVE_DATA
 
 

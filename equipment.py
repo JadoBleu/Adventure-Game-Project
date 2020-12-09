@@ -95,25 +95,25 @@ def new_weapon_name(weapon_rarity, damage_type):
     return name
 
 
-def new_weapon(common=80, uncommon=15, rare=5, player_level=1):
+def new_weapon(common=80, uncommon=15, rare=5, level=1):
     '''Generates a new weapon based on the player's level'''
     weapon_rarity = new_rarity(common, uncommon, rare)
     weapon_type = new_damage_type()
     weapon_name = new_weapon_name(weapon_rarity, weapon_type)
     # Generate Attack values with a minimum range of 2
     try:
-        weapon_attack_min = int((10 + math.pow(player_level, 0.91) * 2)
-                                + (player_level * (random.randrange(-100, 100, 1)/1000)))
+        weapon_attack_min = int((10 + math.pow(level, 0.91) * 2)
+                                + (level * (random.randrange(-100, 100, 1)/1000)))
     except:
         weapon_attack_min = int((12) + (random.randrange(-1, 2, 1)))
     weapon_attack_max = int((weapon_attack_min * (random.randrange(100, 110)/100)) + 5)
     weapon_energy_regen = int(weapon_attack_min * (random.randrange(50, 60)/100))
     # Calculate weapon cost
-    weapon_value = math.floor(player_level/10)*3 + 50 + random.randrange(-3, 3)
+    weapon_value = math.floor(level/10)*3 + 50 + random.randrange(-3, 3)
     # Packs the data into a dictionary to return
     weapon_data = {
         "item": "weapon",
-        "level": player_level,
+        "level": level,
         "rarity": weapon_rarity,
         "type": weapon_type,
         "name": weapon_name,
@@ -164,14 +164,14 @@ def new_armor_name(armor_rarity, armor_type):
     return name
 
 
-def new_armor(common=80, uncommon=15, rare=5, player_level=1):
+def new_armor(common=80, uncommon=15, rare=5, level=1):
     '''Generates a new armor based on the player's level'''
     armor_rarity = new_rarity(common, uncommon, rare)
     armor_type = new_armor_type()
     armor_name = new_armor_name(armor_rarity, armor_type)
     # Generate Resistance values within a range.
-    armor_resistance = int((15 + player_level * 0.5)
-                           + (player_level * (random.randrange(-50, 50, 1)/1000)))
+    armor_resistance = int((15 + level * 0.5)
+                           + (level * (random.randrange(-50, 50, 1)/1000)))
     # Generate the amount of additional stats
     if armor_rarity == "common":
         stat_amount = 1
@@ -185,17 +185,17 @@ def new_armor(common=80, uncommon=15, rare=5, player_level=1):
     bonus_dexterity = 0
     for _ in range(stat_amount):
         if rng(1, 3):
-            bonus_health = bonus_health + (int(math.sqrt(player_level)*5) + 10)
+            bonus_health = bonus_health + (int(math.sqrt(level)*5) + 10)
         elif rng(1, 2):
-            bonus_energy = bonus_energy + (int(math.sqrt(player_level)*1.5) + 1)
+            bonus_energy = bonus_energy + (int(math.sqrt(level)*1.5) + 1)
         else:
-            bonus_dexterity = bonus_dexterity + (int(math.sqrt(player_level)) + 5)
+            bonus_dexterity = bonus_dexterity + (int(math.sqrt(level)) + 5)
     # Calculate cost of armor
-    armor_value = math.floor(player_level/10)*3 + 50 + random.randrange(-3, 3)
+    armor_value = math.floor(level/10)*3 + 50 + random.randrange(-3, 3)
     # Packs the data into a dictionary to return
     armor_data = {
         "item": "armor",
-        "level": player_level,
+        "level": level,
         "rarity": armor_rarity,
         "type": armor_type,
         "name": armor_name,
@@ -245,7 +245,7 @@ def new_ring_name(ring_rarity):
     return name
 
 
-def new_ring(common=70, uncommon=20, rare=10, player_level=1):
+def new_ring(common=70, uncommon=20, rare=10, level=1):
     '''Generates a new ring based on the player's level'''
     ring_rarity = new_rarity(common, uncommon, rare)
     ring_name = new_ring_name(ring_rarity)
@@ -264,19 +264,19 @@ def new_ring(common=70, uncommon=20, rare=10, player_level=1):
     bonus_dexterity = 0
     for _ in range(stat_amount):
         if rng(1, 4):
-            bonus_attack = bonus_attack + (int(math.sqrt(player_level)) + 2)
+            bonus_attack = bonus_attack + (int(math.sqrt(level)) + 2)
         elif rng(1, 3):
-            bonus_health = bonus_health + (int(math.sqrt(player_level)*3) + 1)
+            bonus_health = bonus_health + (int(math.sqrt(level)*3) + 1)
         elif rng(1, 2):
-            bonus_energy = bonus_energy + (int(math.sqrt(player_level)*1.5) + 1)
+            bonus_energy = bonus_energy + (int(math.sqrt(level)*1.5) + 1)
         else:
-            bonus_dexterity = bonus_dexterity + (int(math.sqrt(player_level)) + 1)
+            bonus_dexterity = bonus_dexterity + (int(math.sqrt(level)) + 1)
     # Calculate cost of armor
-    ring_value = math.floor(player_level/10)*3 + 50 + random.randrange(-3, 3)
+    ring_value = math.floor(level/10)*3 + 50 + random.randrange(-3, 3)
     # Packs the data into a dictionary to return
     ring_data = {
         "item": "ring",
-        "level": player_level,
+        "level": level,
         "rarity": ring_rarity,
         "name": ring_name,
         "health": bonus_health,

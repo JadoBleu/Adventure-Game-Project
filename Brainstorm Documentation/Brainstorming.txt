@@ -1,0 +1,134 @@
+#... means that it has been explained above.
+
+Start Menu:		    
+	New Game        #Erases Player Data file.(confirmation required)
+	Load Game       #Loads player data from external file
+    Game Info       #Allows you to review help text.
+    Save Game       #Outputs player data to external File
+    Save and Exit   #Outputs player data to external File and quits game.
+
+Game Info:
+    Damage          #Has a lower and upper limit. Each instance of damage is chosen from a value between these.
+	Damage Type     #Slash, Impact, Magic, Spiritual
+    Ability Method   
+        Single          #200% damage to one target
+        Splash          #150% damage to one target and 75% damage to all other Enemies
+        Wide Area       #100% damage to all enemies
+    Status effects  
+        Boost               #Increases base damage by 15%                
+        Damage over time    #Does an additional 25% damage over 3 turns (Highest Applies)
+        Stun                #Has x% chance of skipping enemy turn
+        Blind               #Has x% chance of missing 
+	Base Resistance	    #Base damage reduction. 
+    Armour Types
+        Plate           #Slash Resistance       +25%    Magic Resistance        -15%
+        Leather         #Impact Resistance      +25%    Spiritual Resistance    -15%
+        Chain           #Magic Resistance       +25%    Impact Resistance       -15%
+        Robe            #Spiritual Resistance   +25%    Slash Resistance        -15%
+	Special Ability     #Randomly generated from a combination of Damage Type, Attack Method, and Status Effect
+        Base Damage     #Ability levels + 10% additiona damage for matching weapon damage type
+        Damage Type     #One of the 4 types randomized
+        Ability Method  #One of the 3 types randomized
+        Status effects  #One of the 4 types randomized             
+
+
+Player data
+    Level               #Levelinng up allows you to increase stats by 3 points(Life, Attack, or Energy). 
+                        #Each level will increase all stats by 1 (Life, attack, Energy, Energy/Attack)
+        Experience      #Levels increase exponentially
+    Life	            #When life hits 0, the fight is lost, and the player is given the option to use a revive scroll or to return to town.
+    Attack	            #Base attack and weapon attack
+    Special Attack      #After every 50 uses, the player can choose to increase base damage, status effects or increase energy efficiency
+                        #Can learn 2 Special Attacks               
+    Energy		        #Use Energy to use Special Attacks.
+    Energy Regen        #Energy is restored for each Basic Attack.
+################################################################################################################################################################# Need to work on Deity Affiliation
+    Deity Affiliation   #Pick one out of 3 for the first visit
+                        #Several other options only found through adventuring.
+
+
+#There is no inventory system for equipment. Each time an item is found, it can be equipped and the old one discarded, or sold for gold.
+Items:
+    Equipment:	            #Item Level(Hidden) determines range of stats
+                            #Common     80% (Stats +0%, 1-2 additional stat[weighted low])
+                            #uncommon   15% (Stats +10%, 1-3 additional stats[weighted middle])
+                            #Rare       5%  (Stats +15%, 2-3 additional stat[equal chance])
+        Weapons	            
+            Base damage     #Lower and Upper Limits randomized
+            Damage Type     #One of the 4 types randomized
+            Energy Regen    #Lower and Upper Limits randomized
+        Accessory	        #Additional stats(Life, Damage, Energy) are selected, duplicates allowed
+            Life            ##Random value selected (weighted by level)
+            Damage          ##Random value selected (weighted by level)
+            Energy          ##Random value selected (weighted by level)
+        Armor		        
+            Type            #1 of the 4 types randomized
+            Base Resistance ##Random value selected (weighted by level)
+                            #Additional stats (Life, Energy, Energy Regen) are selected, duplicates allowed       
+            Type            #1 of the 4 types randomized
+            Base Resistance #Random value selected (weighted by level)
+            Life            #Random value selected (weighted by level)
+            Energy          #Random value selected (weighted by level)
+    Ability Tome            #Randomly Generated Ability
+                            #Choose one ability to overwrite, or consume to grant one ability x experience.
+                                #Bonus experience for matching type, method, and Status effect
+                                    #one match = 25% increase
+                                    #two matchs = 65% increase
+                                    #three matches = 100% increase
+
+
+Town
+    Shop            #Buy or sell(50% cost)	        
+        Equipment, between 1 or 2 are randomly generated after each adventure. (Common only)
+            Armour(50%)         ...
+            Weapon(40%)         ...
+            Accessory(10%)      ...
+        Revive scrolls
+        Recovery potions
+	Shrine		                #Shrine Level Limited by player level
+        Recover Life and Energy #Costs gold(increased by player level, decreased by shrine level)
+        Change affiliation      #resets Affiliation level to 1
+        Crusade                 #Increases Shrine affiliation after a difficult battle against acolytes of different affiliation(No drops)
+    Adventure
+        Battles(85%)     
+        Wandering Merchant(5%)  #Sells one random equipment (All rarities)
+        Old Battlefield         #Grants one random common equipment and some gold.
+        Wild Shrine(3%)         #equal chance to encounter any deity.
+        Treasure(5%)    
+            Gold found(75%)
+            Item found(25%)      
+                Recovery potions(25%)
+                Ressurection scroll(5%)
+                Equipment(70%)       #10% chance of rare item
+                    Equip New Item(previous item is discarded)
+                    Sell New Item
+
+Battles             #1 to 3 Enemies(32% chance each) are randomly generated with same armour types and different weapon types
+                    #4% chance of a Boss monster appearing.
+                        #Enemy equipment Item level = monster level
+                        #Boss monsters will always be accompanied by two minion.
+                        #Fights are won once all enemy Life points hits 0.
+   Attack           #Does damage within the range and recovers Energy
+   Special Attack   #Consumes Energy to cast an ability.
+   Use Item         #Use the turn to recover Life using potions.
+   Escape           #Returns to town, there may be a penalty for running away up to x% of current gold; rounded up.              
+                    
+    Rewards         #Boss fights will modify drop chances(shown in parenthesis)
+        Equipment Drop      #20% chance (+80%)
+            Common              #90%    (-90%)
+            Rare                #10%    (+90%)
+                            #The player has a choice to equip or sell new item(previous item is discarded)
+        Item Drop           #20% chance (+20%)
+            Recovery Potion     #80%
+            Ressurection Scroll #20%
+        Ability Tome Drop   #1% chance  (+19%)
+                                
+        Experience Gain     #The player will obtain x experience per enemy (2x)
+
+
+
+
+
+
+		
+

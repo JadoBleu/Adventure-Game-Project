@@ -12,7 +12,7 @@ from housekeeping import clear_screen
 from shop import shop
 from adventure import adventure
 from equipment import new_armor, new_weapon
-
+import os
 
 def main_menu(SAVE_DATA):
     '''main menu to save, load, or exit game'''
@@ -37,7 +37,7 @@ def main_menu(SAVE_DATA):
         
         town(SAVE_DATA)
     elif command.lower() == "x":
-        exit()
+        os._exit(1)
     else:
         main_menu(SAVE_DATA)
 

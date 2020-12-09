@@ -1,0 +1,111 @@
+{
+    "name": "Player 1",
+    "player_data": {
+        "level": 1,
+        "exp": 55,
+        "hp": 58,
+        "max_hp": 58,
+        "energy": 25,
+        "max_energy": 25,
+        "dexterity": 80,
+        "stats": {
+            "health": 10,
+            "attack": 5,
+            "dexterity": 2,
+            "energy": 8
+        },
+        "ability_data": {
+            "ability1": {
+                "name": "Rising Fury",
+                "level": 1,
+                "experience": 7,
+                "energy": 10,
+                "type": "slash",
+                "method": "single"
+            },
+            "ability2": {
+                "name": "Whirling Slash",
+                "level": 1,
+                "experience": 1,
+                "energy": 15,
+                "type": "slash",
+                "method": "splash"
+            }
+        },
+        "item_data": {
+            "gold": 949,
+            "potions": 2,
+            "scrolls": 2,
+            "weapon": {
+                "item": "weapon",
+                "level": 1,
+                "rarity": "common",
+                "type": "slash",
+                "name": "Common Long Sword",
+                "min": 12,
+                "max": 18,
+                "energy": 6,
+                "value": 51
+            },
+            "armor": {
+                "item": "armor",
+                "level": 1,
+                "rarity": "rare",
+                "type": "chain",
+                "name": "Rare Scale Hauberk",
+                "resistance": 15,
+                "health": 0,
+                "energy": 4,
+                "dexterity": 12,
+                "value": 50
+            },
+            "ring1": {
+                "item": "ring",
+                "level": 1,
+                "rarity": "rare",
+                "name": "Rare Sapphire Ring",
+                "health": 4,
+                "energy": 4,
+                "dexterity": 2,
+                "attack": 3,
+                "value": 48
+            },
+            "ring2": {
+                "item": "ring",
+                "level": 1,
+                "rarity": "common",
+                "name": "Common Platinum Ring",
+                "health": 4,
+                "energy": 2,
+                "dexterity": 0,
+                "attack": 0,
+                "value": 47
+            }
+        }
+    },
+    "shop_data": {
+        "new_items": true,
+        "item1": {
+            "value": 25,
+            "name": "Healing Potion"
+        },
+        "item2": {
+            "value": 50,
+            "name": "Resurection Scroll"
+        },
+        "item3": null,
+        "item4": null,
+        "item5": {
+            "item": "armor",
+            "level": 1,
+            "rarity": "common",
+            "type": "chain",
+            "name": "Common Scale Hauberk",
+            "resistance": 15,
+            "health": 15,
+            "energy": 0,
+            "dexterity": 0,
+            "value": 49
+        }
+    }
+}

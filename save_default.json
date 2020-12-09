@@ -5,8 +5,8 @@
         "exp": 0,
         "hp": 50,
         "max_hp": 50,
-        "energy": 15,
-        "max_energy": 15,
+        "energy": 25,
+        "max_energy": 25,
         "dexterity": 80,
         "stats": {
             "health": 0,
@@ -16,44 +16,44 @@
         },
         "ability_data": {
             "ability1": {
-                "name": "",
+                "name": "Rising Fury",
                 "level": 1,
                 "experience": 0,
-                "energy": 0,
-                "type": "",
-                "method": ""
+                "energy": 10,
+                "type": "slash",
+                "method": "single"
             },
             "ability2": {
-                "name": "",
+                "name": "Whirling Slash",
                 "level": 1,
                 "experience": 0,
-                "energy": 0,
-                "type": "",
-                "method": ""
+                "energy": 15,
+                "type": "slash",
+                "method": "splash"
             }
         },
         "item_data": {
-            "gold": 0,
-            "potions": 0,
-            "scrolls": 0,
+            "gold": 100,
+            "potions": 1,
+            "scrolls": 1,
             "weapon": {
                 "item": "weapon",
-                "level": 0,
-                "rarity": "",
-                "type": "",
-                "name": "",
-                "min": 0,
-                "max": 0,
-                "energy": 0,
+                "level": 1,
+                "rarity": "common",
+                "type": "slash",
+                "name": "Starter Sword",
+                "min": 10,
+                "max": 15,
+                "energy": 3,
                 "value": 0
             },
             "armor": {
                 "item": "armor",
-                "level": 0,
-                "rarity": "",
-                "type": "",
-                "name": "",
-                "resistance": 0,
+                "level": 1,
+                "rarity": "common",
+                "type": "plate",
+                "name": "Starter Plate",
+                "resistance": 15,
                 "health": 0,
                 "energy": 0,
                 "dexterity": 0,
